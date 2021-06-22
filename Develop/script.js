@@ -15,6 +15,7 @@ symbol = ["~", "`", "!" , "@" , "#" , "$" , "%" , "^" , "&" , "*" ,"(" , ")" , "
 letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x" , "y" ,"z"];
 // Array will contain capitol letters
 capital = [];
+// Array will contain total combination of user choices
 var choices = [];
 // converts letters to uppercase 
 var capitalize = function (x) {
@@ -24,7 +25,6 @@ letters2 = letters.map(capitalize);
 
 
 // Write password to the #password input
-
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
@@ -37,31 +37,24 @@ generateBtn.addEventListener("click", writePassword);
 
 
 function generatePassword() {
+  // Uses the entered value from the length promt to determine password length 
   passLength = parseInt(prompt("Password Length?"));{
-
+    // stops the user from progressing without a value in the passLength prompt
     if(!passLength) {
       window.alert("Please enter a value.");
     }
-  
+  // Sets our limits from a minimum of 8 characters to a max of 128 characters
    else if (passLength < 8 || passLength > 128) {
     passLength= parseInt(prompt("Password must be between 8 and 128 characters."));
   }
   
-
+// Begins the choices check
   else {
     symbolPrompt = confirm("Special Character? y/n");
     upperPrompt = confirm("Capitol Letters? y/n");
     lowerPrompt = confirm("Lowercase letters? y/n");
     numberPrompt = confirm("Numbers? y/n");
   };
-
-console.log(passLength);
-console.log(symbolPrompt);
-console.log(upperPrompt);
-console.log(lowerPrompt);
-console.log(numberPrompt);
-
-
 
   // None true
 
@@ -71,112 +64,111 @@ console.log(numberPrompt);
 
   // All true
   else if (upperPrompt && lowerPrompt && numberPrompt && symbolPrompt) {
-    choices += letters.concat(letters2, number, symbol);
+    choices = letters.concat(letters2, number, symbol);
     
   }
 
   // Just symcheck false
 
   else if (upperPrompt && lowerPrompt && numberPrompt && !symbolPrompt) {
-    choices += letters.concat(number, letters2);
+    choices = letters.concat(number, letters2);
 
   }
 
   // Just Numbercheck false
 
   else if (upperPrompt && lowerPrompt && !numberPrompt && symbolPrompt) {
-    choices += letters.concat(letters2, symbol);
+    choices = letters.concat(letters2, symbol);
     
   }
 
   // Just lowercheck false
 
   else if (upperPrompt && !lowerPrompt && numberPrompt && symbolPrompt) {
-    choices += letters2.concat(number, symbol);
+    choices = letters2.concat(number, symbol);
     
   }
 
   // Just UperCheck false
 
   else if (!upperPrompt && lowerPrompt && numberPrompt && symbolPrompt) {
-    choices += letters.concat(number, symbol);
+    choices = letters.concat(number, symbol);
     
   }
 
   // Uppercheck and lowercheck false
 
   else if (!upperPrompt && !lowerPrompt && numberPrompt && symbolPrompt) {
-    choices += number.concat(symbol);
+    choices = number.concat(symbol);
   }
 
   // Uppercheck and numbercheck false
 
   else if (!upperPrompt && lowerPrompt && !numberPrompt && symbolPrompt) {
-    choices += letters.concat(symbol);
+    choices = letters.concat(symbol);
   }
 
   // Uppercheck and symbolcheck false
 
   else if (!upperPrompt && lowerPrompt && numberPrompt && !symbolPrompt) {
-    choices += letters.concat(number);
+    choices = letters.concat(number);
   }
 
   // lowercheck and numbercheck false
 
   else if (upperPrompt && !lowerPrompt && numberPrompt && !symbolPrompt) {
-    choices += letters2.concat(symbol);
+    choices = letters2.concat(symbol);
   }
 
   // lowercheck and symbolcheck false
 
   else if (upperPrompt && !lowerPrompt && numberPrompt && !symbolPrompt) {
-    choices += letters2.concat(number);
+    choices = letters2.concat(number);
   }
 
   // numbercheck and symbolcheck false
 
   else if (upperPrompt && lowerPrompt && !numberPrompt && !symbolPrompt) {
-    choices += letters.concat(letters2);
+    choices = letters.concat(letters2);
   }
 
   // Uppercheck lowercheck and numbercheck false
 
   else if (!upperPrompt && !lowerPrompt && !numberPrompt && symbolPrompt) {
-    choices += symbol;
+    choices = symbol;
   }
 
   // Uppercheck lowercheck and symbolcheck false
 
   else if (!upperPrompt && !lowerPrompt && numberPrompt && !symbolPrompt) {
-    choices += number;
+    choices = number;
   }
 
   // Uppercheck numbercheck and symbolcheck false
 
   else if (!upperPrompt && lowerPrompt && !numberPrompt && !symbolPrompt) {
-    choices += letters;
+    choices = letters;
   }
 
   // lowercheck numbercheck and symbolcheck false
 
   else if (upperPrompt && !lowerPrompt && !numberPrompt && !symbolPrompt) {
-    choices += capital.concat(letters2);
+    choices = capital.concat(letters2);
   };
-
+// using an array with our choices characters are randomly selected and then added to the empty array that is pass using the push method
   for (i = 0; i<=passLength; i++) {
     var randomize = choices[Math.floor(Math.random() * choices.length)];
     pass.push(randomize);
   }
-
+// finally the array of pass that was just made is converted back into a string using the join method. If we didn't specify ("") our password would be filled with unwanted commas 
   var finalPass = pass.join("");
   Input(finalPass);
   return finalPass;
   }
-
+// The password is sent to the textbox where the user can read it
   function Input(finalPass){
   document.getElementById("password").textContent= finalPass
 
-  window.alert(finalpass)
 
 }
 }
