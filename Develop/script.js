@@ -38,7 +38,7 @@ generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
   // Uses the entered value from the length promt to determine password length 
-  passLength = parseInt(prompt("Password Length?")); {
+  passLength = parseInt(prompt("Desired Password Length?")); {
     // stops the user from progressing without a value in the passLength prompt
     if (!passLength) {
       window.alert("Please enter a value.");
